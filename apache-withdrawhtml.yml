@@ -1,0 +1,14 @@
+---
+- name: install and start Apache
+  hosts: all
+  vars_files:
+    - "vars/{{ ansible_os_family }}.yml"
+  become: yes
+
+  tasks:
+    - name: Remove index.html file
+      file: path=/var/www/html/index.html state=absent
+ 
+    - name: Stop Apache
+      service: name={{ apache }} state=stopped
+

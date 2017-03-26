@@ -1,0 +1,37 @@
+---
+- name: install and start Apache
+  hosts: all
+  vars_files:
+    - "vars/{{ ansible_os_family }}.yml"
+  become: yes
+
+  tasks:
+    - name: install Apache on Suse
+      zypper: name={{ apache }}
+      when: ansible_os_family == "Suse"
+
+    - name: install Apache on Solaris
+      pkg5: name=web/server/apache-24
+      when: ansible_os_family == "Solaris"
+
+    - name: install Apache on RHEL
+      yum:  name={{ apache }}
+      when: ansible_os_family == "RedHat"
+
+    - name: start Apache
+      service: name={{ apache }} state=started
+
+    - name: copy index.html file
+      copy: src=files/index.html dest=/var/www/html/index.html owner=apache group=apache mode=0755 backup=no
+ 
+    - name: Start/Restart Apache
+      service: name={{ apache }} state=restarted
+
+    - name: Open Firewall Port 80
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: yes
+        zone: public
+

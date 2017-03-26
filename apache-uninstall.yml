@@ -1,0 +1,22 @@
+---
+- name: stop and remove Apache
+  hosts: all
+  vars_files:
+    - "vars/{{ ansible_os_family }}.yml"
+  become: yes
+
+  tasks:
+    - name: stop Apache
+      service: name={{ apache }} state=stopped
+
+#    - name: remove Apache on Solaris
+#      pkg5: name=web/server/apache-24 state=absent
+#      when: ansible_os_family == "Solaris"
+
+    - name: remove Apache on RHEL
+      yum:  name={{ apache }} state=absent
+      when: ansible_os_family == "RedHat"
+
+#    - name: remove Apache on Suse
+#      zypper: name={{ apache }} state=absent
+#      when: ansible_os_family == "Suse"
