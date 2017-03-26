@@ -1,19 +1,11 @@
 ---
 - name: install and start Apache
-  hosts: all
+  hosts: srv-03.rhlab.ch
   vars_files:
     - "vars/{{ ansible_os_family }}.yml"
   become: yes
 
   tasks:
-    - name: install Apache on Suse
-      zypper: name={{ apache }}
-      when: ansible_os_family == "Suse"
-
-    - name: install Apache on Solaris
-      pkg5: name=web/server/apache-24
-      when: ansible_os_family == "Solaris"
-
     - name: install Apache on RHEL
       yum:  name={{ apache }}
       when: ansible_os_family == "RedHat"
