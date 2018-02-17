@@ -9,6 +9,7 @@
     - name: install Apache on RHEL
       yum:  name={{ apache }}
       when: ansible_os_family == "RedHat"
+      become: yes
 
     - name: start Apache
       service: name={{ apache }} state=started
