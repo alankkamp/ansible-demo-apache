@@ -14,7 +14,16 @@
       become: yes
 
     - name: start Apache
-      service: name={{ apache }} state=started
+      service: 
+        name={{ apache }} 
+        state=started
+        enabled: yes
+        
+    - name: start Firewalld
+      service: 
+        name=firewalld
+        state=started
+        enabled: yes
 
     - name: copy index.html file
       copy: src=files/index.html dest=/var/www/html/index.html owner=apache group=apache mode=0755 backup=no
