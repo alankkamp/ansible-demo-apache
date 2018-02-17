@@ -1,5 +1,5 @@
 ---
-- name: install and start Apache
+- name: install and start Apache 1
   hosts: "{{ vmname }}"
   vars_files:
     - "vars/{{ ansible_os_family }}.yml"
