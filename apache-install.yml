@@ -1,6 +1,6 @@
 ---
 - name: install and start Apache
-  hosts: srv-03.rhlab.ch
+  hosts: "{{ vmname }}"
   vars_files:
     - "vars/{{ ansible_os_family }}.yml"
   become: yes
