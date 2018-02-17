@@ -4,9 +4,8 @@
   vars_files:
     - "vars/{{ ansible_os_family }}.yml"
   become: yes
-  become=True
-  become_method=sudo
-  become_user=root
+  become_method: sudo
+  become_user: root
 
   tasks:
     - name: install Apache on RHEL
