@@ -15,14 +15,14 @@
 
     - name: start Apache
       service: 
-        name={{ apache }} 
-        state=started
+        name: "{{ apache }}"
+        state: started
         enabled: yes
         
     - name: start Firewalld
       service: 
-        name=firewalld
-        state=started
+        name: firewalld
+        state: started
         enabled: yes
 
     - name: copy index.html file
